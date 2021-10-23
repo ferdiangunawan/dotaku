@@ -1,9 +1,10 @@
 import 'package:dotaku/common/commons.dart';
 import 'package:dotaku/model/hero.dart';
 import 'package:dotaku/service/hero_services.dart';
-import 'package:dotaku/ui/page/detail_hero_page.dart';
-import 'package:dotaku/ui/widget/hero_card.dart';
 import 'package:dotaku/utils/styles.dart';
+import 'package:dotaku/view/page/detail_hero_page.dart';
+import 'package:dotaku/view/widget/home/hero_card.dart';
+import 'package:dotaku/views/page/failed_fetch_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
                                 physics: const NeverScrollableScrollPhysics(),
                                 crossAxisCount: 2,
                                 children: List.generate(
-                                  10,
+                                  data.length,
                                   (index) {
                                     return Hero(
                                       tag: '$index',
@@ -58,10 +59,10 @@ class HomePage extends StatelessWidget {
                                   },
                                 ));
                           } else {
-                            return const Center(child: Text("No data"));
+                            return const Center(child: FailedFetchPage());
                           }
                         } else {
-                          return Commons.loadingIndicator();
+                          return Center(child: Commons.loadingIndicator());
                         }
                       })
                 ],

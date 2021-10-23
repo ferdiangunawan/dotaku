@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dotaku/utils/constant.dart';
 
 List<Heroes> heroFromJson(String str) => List<Heroes>.from(json.decode(str).map((x) => Heroes.fromJson(x)));

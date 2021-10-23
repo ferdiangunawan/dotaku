@@ -1,4 +1,4 @@
-import 'package:dotaku/ui/page/home_page.dart';
+import 'package:dotaku/view/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
