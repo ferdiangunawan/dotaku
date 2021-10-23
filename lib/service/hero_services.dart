@@ -7,6 +7,7 @@ class Services {
   static Future<List<Heroes>> loadHero() async {
     try {
       var response = await http.get(Uri.parse(ApiRef.hero));
+      // print(response.body.toString());
       if (response.statusCode != 200) {
         //error handle
         throw ServiceException.fromResponse(response);
