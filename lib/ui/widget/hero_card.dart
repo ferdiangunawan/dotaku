@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:dotaku/model/hero.dart';
-import 'package:dotaku/utils/constant.dart';
 import 'package:dotaku/utils/styles.dart';
 
 class HeroCard extends StatelessWidget {
@@ -14,7 +13,6 @@ class HeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var roles = heroes.roles.toString();
     var primaryAtt = heroes.primaryAttr!;
     return GestureDetector(
       onTap: onTap,
@@ -25,20 +23,22 @@ class HeroCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                height: 100,
+                height: 125,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
                     color: Colors.grey.shade200,
-                    image: DecorationImage(image: NetworkImage(ApiRef.heroImage + heroes.img!), fit: BoxFit.cover))),
+                    image: DecorationImage(image: NetworkImage(heroes.img!), fit: BoxFit.cover))),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(heroes.name ?? 'unknown',
                       style: whiteFontStyle.copyWith(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
-                  Text(roles.substring(1, roles.length - 1), style: greyFontStyle, overflow: TextOverflow.ellipsis, maxLines: 1),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(heroes.role, style: greyFontStyle, overflow: TextOverflow.ellipsis, maxLines: 1),
                   Row(
                     children: [
                       IndicatorAtt(primaryAtt: primaryAtt),
