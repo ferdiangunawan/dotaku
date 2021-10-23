@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-List<Hero> heroFromJson(String str) => List<Hero>.from(json.decode(str).map((x) => Hero.fromJson(x)));
+List<Heroes> heroFromJson(String str) => List<Heroes>.from(json.decode(str).map((x) => Heroes.fromJson(x)));
 
-class Hero {
-  Hero({
+class Heroes {
+  Heroes({
     this.id,
     this.name,
     this.primaryAttr,
@@ -25,7 +25,7 @@ class Hero {
   int? baseAttackMax;
   int? moveSpeed;
 
-  factory Hero.fromJson(Map<String, dynamic> json) => Hero(
+  factory Heroes.fromJson(Map<String, dynamic> json) => Heroes(
         id: json["id"],
         name: json["name"],
         primaryAttr: primaryAttrValues.map?[json["primary_attr"]],

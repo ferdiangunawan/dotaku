@@ -4,7 +4,7 @@ import 'package:dotaku/utils/constant.dart';
 import 'package:http/http.dart' as http;
 
 class Services {
-  static Future<List<Hero>> loadHero() async {
+  static Future<List<Heroes>> loadHero() async {
     try {
       var response = await http.get(Uri.parse(ApiRef.hero));
       if (response.statusCode != 200) {
