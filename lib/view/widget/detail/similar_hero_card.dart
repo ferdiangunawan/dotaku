@@ -1,7 +1,6 @@
+import 'package:dotaku/utils/theme/font.dart';
 import 'package:flutter/material.dart';
-
 import 'package:dotaku/model/hero.dart';
-import 'package:dotaku/utils/styles.dart';
 
 class SimilarHeroCard extends StatelessWidget {
   final Heroes heroes;
@@ -23,7 +22,7 @@ class SimilarHeroCard extends StatelessWidget {
             color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(image: NetworkImage(heroes.img!), fit: BoxFit.cover)),
-        child: Center(child: Text(heroes.name!, style: blackFontStyle)),
+        child: Center(child: Text(heroes.name!, style: FontTheme.blackFontStyle)),
       ),
     );
   }

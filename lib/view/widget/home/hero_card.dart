@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dotaku/model/hero.dart';
-import 'package:dotaku/utils/styles.dart';
+import 'package:dotaku/utils/theme/font.dart';
 
 class HeroCard extends StatelessWidget {
   final Heroes heroes;
@@ -34,16 +34,16 @@ class HeroCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(heroes.name ?? 'unknown',
-                      style: whiteFontStyle.copyWith(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
+                      style: FontTheme.whiteFontStyle.copyWith(fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
                   const SizedBox(
                     height: 5,
                   ),
-                  Text(heroes.role, style: greyFontStyle, overflow: TextOverflow.ellipsis, maxLines: 1),
+                  Text(heroes.role, style: FontTheme.greyFontStyle, overflow: TextOverflow.ellipsis, maxLines: 1),
                   Row(
                     children: [
                       IndicatorAtt(primaryAtt: primaryAtt),
                       const SizedBox(width: 5),
-                      Text(heroes.primaryAttr!, style: greyFontStyle),
+                      Text(heroes.primaryAttr!, style: FontTheme.greyFontStyle),
                     ],
                   ),
                   const SizedBox(height: 10),

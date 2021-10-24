@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dotaku/model/hero.dart';
 import 'package:dotaku/service/service_exception.dart';
-import 'package:dotaku/utils/constant.dart';
+import 'package:dotaku/utils/network/api.dart';
 import 'package:http/http.dart' as http;
 
 class Services {
@@ -22,7 +22,6 @@ class Services {
     try {
       var response = await http.get(Uri.parse(ApiRef.hero));
       List data = jsonDecode(response.body);
-      // print(data.toString());
 
       if (response.statusCode != 200) {
         throw ServiceException.fromResponse(response);
@@ -33,8 +32,6 @@ class Services {
           hasil.add(Heroes.fromJson(item));
         }
       }
-
-      // List<Heroes> result = data.where((element) => element['primary_attr'] == attr).toList() as List<Heroes>;
       return hasil;
     } catch (exception) {
       rethrow;

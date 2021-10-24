@@ -1,10 +1,10 @@
 import 'package:dotaku/common/commons.dart';
 import 'package:dotaku/model/hero.dart';
 import 'package:dotaku/service/hero_services.dart';
-import 'package:dotaku/utils/styles.dart';
+import 'package:dotaku/utils/theme/color.dart';
 import 'package:dotaku/view/page/detail_hero_page.dart';
+import 'package:dotaku/view/widget/general/failed_fetch_page.dart';
 import 'package:dotaku/view/widget/home/hero_card.dart';
-import 'package:dotaku/views/page/failed_fetch_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: accentColor,
+      backgroundColor: ColorTheme.accentColor,
       appBar: Commons.appBar(context: context, title: 'Dotaku'),
       body: Scrollbar(
         isAlwaysShown: false,

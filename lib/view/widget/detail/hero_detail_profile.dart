@@ -1,4 +1,4 @@
-import 'package:dotaku/utils/styles.dart';
+import 'package:dotaku/utils/theme/font.dart';
 import 'package:flutter/material.dart';
 
 class HeroDetailProfile extends StatelessWidget {
@@ -17,12 +17,12 @@ class HeroDetailProfile extends StatelessWidget {
       children: [
         Text(
           title,
-          style: greyFontStyle,
+          style: FontTheme.greyFontStyle,
         ),
         FittedBox(
           child: Text(
             value,
-            style: whiteFontStyle.copyWith(fontWeight: FontWeight.bold),
+            style: FontTheme.whiteFontStyle.copyWith(fontWeight: FontWeight.bold),
           ),
         )
       ],

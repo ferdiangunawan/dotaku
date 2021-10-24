@@ -1,4 +1,4 @@
-import 'package:dotaku/utils/styles.dart';
+import 'package:dotaku/utils/theme/font.dart';
 import 'package:flutter/material.dart';
 
 class FailedFetchPage extends StatelessWidget {
@@ -17,7 +17,7 @@ class FailedFetchPage extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {},
-          child: Text('Try Again', style: whiteFontStyle.copyWith(fontSize: 18)),
+          child: Text('Try Again', style: FontTheme.whiteFontStyle.copyWith(fontSize: 18)),
         ),
       ],
     );
