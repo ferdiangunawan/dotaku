@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dotaku/model/hero.dart';
 import 'package:dotaku/service/service_exception.dart';
 import 'package:dotaku/utils/network/api.dart';
@@ -26,13 +25,13 @@ class Services {
       if (response.statusCode != 200) {
         throw ServiceException.fromResponse(response);
       }
-      List<Heroes> hasil = [];
+      List<Heroes> result = [];
       for (var item in data) {
         if (item['primary_attr'] == attr) {
-          hasil.add(Heroes.fromJson(item));
+          result.add(Heroes.fromJson(item));
         }
       }
-      return hasil;
+      return result;
     } catch (exception) {
       rethrow;
     }

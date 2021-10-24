@@ -7,7 +7,7 @@ import 'package:dotaku/view/widget/general/failed_fetch_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:dotaku/common/commons.dart';
+import 'package:dotaku/utils/common/common.dart';
 import 'package:dotaku/model/hero.dart';
 
 class DetailHeroPage extends StatelessWidget {
