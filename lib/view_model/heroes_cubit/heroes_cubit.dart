@@ -3,7 +3,6 @@ import 'package:dotaku/model/hero.dart';
 import 'package:dotaku/service/hero_services.dart';
 import 'package:dotaku/service/service_exception.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'heroes_state.dart';
 

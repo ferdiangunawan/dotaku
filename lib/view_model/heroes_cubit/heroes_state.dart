@@ -1,6 +1,5 @@
 part of 'heroes_cubit.dart';
 
-@immutable
 abstract class HeroesState extends Equatable {
   final List<Heroes>? heroesLists;
   const HeroesState(this.heroesLists);

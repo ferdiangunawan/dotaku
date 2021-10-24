@@ -1,14 +1,15 @@
-import 'package:dotaku/service/hero_services.dart';
 import 'package:dotaku/utils/theme/color.dart';
 import 'package:dotaku/utils/theme/font.dart';
 import 'package:dotaku/view/widget/detail/detail_profile_card.dart';
 import 'package:dotaku/view/widget/detail/similar_hero_card.dart';
 import 'package:dotaku/view/widget/general/failed_fetch_page.dart';
+import 'package:dotaku/view_model/heroes_similar_cubit/similar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:dotaku/utils/common/common.dart';
 import 'package:dotaku/model/hero.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailHeroPage extends StatelessWidget {
   final List<Heroes> heroesList;
@@ -83,47 +84,45 @@ class SimilarHeroGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: Services.similarHero(heroes.primaryAttr!),
-        builder: (_, snap) {
-          if (snap.connectionState == ConnectionState.done) {
-            if (snap.hasData) {
-              var data = snap.data as List<Heroes>;
-              if (heroes.primaryAttr == 'agi') {
-                data.sort((b, a) => (a.moveSpeed!.compareTo(b.moveSpeed!)));
-              } else if (heroes.primaryAttr == 'str') {
-                data.sort((b, a) => (a.baseAttackMax!.compareTo(b.baseAttackMax!)));
-              } else {
-                data.sort((b, a) => (a.baseMana!.compareTo(b.baseMana!)));
-              }
-              return ListView.builder(
-                  itemCount: 3,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      child: SimilarHeroCard(
-                        heroes: data[index],
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => DetailHeroPage(
-                                        heroes: data[index],
-                                        index: index,
-                                        heroesList: data,
-                                      )));
-                        },
-                      ),
-                    );
-                  });
-            } else {
-              return const FailedFetchPage();
-            }
-          } else {
-            return Center(child: Commons.loadingIndicator());
-          }
-        });
+    return BlocBuilder<HeroesSimilarCubit, HeroesSimilarState>(builder: (_, state) {
+      if (state is HeroesSimilarLoaded) {
+        var data = state.heroesList!;
+        return ListView.builder(
+            itemCount: 3,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (_, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: SimilarHeroCard(
+                  heroes: data[index],
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => DetailHeroPage(
+                                  heroes: data[index],
+                                  index: index,
+                                  heroesList: data,
+                                )));
+                  },
+                ),
+              );
+            });
+      } else if (state is HeroesSimilarLoading) {
+        return Center(
+          child: Commons.loadingIndicator(),
+        );
+      } else if (state is HeroesSimilarError) {
+        return FailedFetchPage(
+          pageId: 'home',
+          message: state.message,
+        );
+      } else {
+        return const FailedFetchPage(
+          pageId: 'home',
+        );
+      }
+    });
   }
 }
