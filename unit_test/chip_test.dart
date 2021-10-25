@@ -11,7 +11,7 @@ void main() {
       }
     });
 
-    test('2 filter Selected', () {
+    test('2 chip choice Selected', () {
       con.setEnable(1, true);
       con.setEnable(2, true);
 
