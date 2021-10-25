@@ -1,4 +1,4 @@
-import 'package:dotaku/model/chips.dart';
+import 'package:dotaku/view_model/controller/category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dotaku/utils/common/common.dart';
@@ -8,9 +8,10 @@ import 'package:dotaku/view/widget/general/failed_fetch_page.dart';
 import 'package:dotaku/view/widget/home/hero_card.dart';
 import 'package:dotaku/view_model/heroes_cubit/heroes_cubit.dart';
 import 'package:dotaku/view_model/heroes_similar_cubit/similar_cubit.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,19 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<HeroesCubit>();
-    // List<ChipModel> listChips = [
-    //   ChipModel(title: 'Support', selected: false),
-    //   ChipModel(title: 'Anti-Mage', selected: false),
-    //   ChipModel(title: 'Disabler', selected: false),
-    //   ChipModel(title: 'Jungler', selected: false),
-    //   ChipModel(title: 'Pusher', selected: false),
-    //   ChipModel(title: 'Carry', selected: false),
-    //   ChipModel(title: 'Nuker', selected: false),
-    //   ChipModel(title: 'Durable', selected: false),
-    //   ChipModel(title: 'Escape', selected: false),
-    //   ChipModel(title: 'Initiator', selected: false)
-    // ];
-
+    var con = Get.put(CategoryController());
     return Scaffold(
       backgroundColor: ColorTheme.accentColor,
       appBar: Commons.appBar(context: context, title: 'Dotaku'),
@@ -42,6 +31,8 @@ class _HomePageState extends State<HomePage> {
         key: _refreshIndicatorKey,
         onRefresh: () async {
           bloc.fetchHeroes();
+          con.resetSelected();
+          setState(() {});
         },
         child: Scrollbar(
           isAlwaysShown: false,
@@ -53,22 +44,23 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Column(
                   children: [
-                    Wrap(
-                      children: ChipModel.listChips.map((e) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Chips(
-                            title: e.title,
-                            selected: e.selected,
-                            onSelected: (value) {
-                              setState(() {
-                                e.selected = value;
-                                print(value.toString());
-                              });
-                            },
-                          ),
-                        );
-                      }).toList(),
+                    Obx(
+                      () => Wrap(
+                        children: con.chipList.map((e) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Chips(
+                              title: e.title,
+                              selected: e.selected,
+                              onSelected: (value) {
+                                con.setEnable(con.chipList.indexOf(e), value);
+                                bloc.filterHeroes(e.title, value);
+                                setState(() {});
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                     BlocBuilder<HeroesCubit, HeroesState>(builder: (_, state) {
                       if (state is HeroesLoaded) {
@@ -127,9 +119,9 @@ class _HomePageState extends State<HomePage> {
 
 class Chips extends StatelessWidget {
   final String title;
-  bool selected;
-  Function(bool) onSelected;
-  Chips({
+  final bool selected;
+  final Function(bool) onSelected;
+  const Chips({
     Key? key,
     required this.title,
     required this.selected,

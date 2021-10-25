@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:dotaku/utils/theme/font.dart';
 import 'package:dotaku/view_model/heroes_cubit/heroes_cubit.dart';
 import 'package:dotaku/view_model/heroes_similar_cubit/similar_cubit.dart';
