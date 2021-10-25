@@ -17,13 +17,15 @@ class HeroCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        height: 200,
+        width: MediaQuery.of(context).size.width * .44,
         decoration: BoxDecoration(color: Colors.black87, borderRadius: BorderRadius.circular(12)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                height: 125,
+                height: 130,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
                     color: Colors.grey.shade200,

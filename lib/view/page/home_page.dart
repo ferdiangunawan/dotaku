@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Column(
                   children: [
                     Obx(
@@ -64,12 +64,9 @@ class _HomePageState extends State<HomePage> {
                     BlocBuilder<HeroesCubit, HeroesState>(builder: (_, state) {
                       if (state is HeroesLoaded) {
                         final data = state.heroesList!;
-                        return GridView.count(
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
+                        return Wrap(
+                            spacing: 15,
+                            runSpacing: 10,
                             children: List.generate(
                               data.length,
                               (index) {
