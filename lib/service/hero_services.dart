@@ -9,7 +9,7 @@ class Services {
   static Future<List<Heroes>> loadHero() async {
     try {
       http.Response? response;
-      response = await http.get(Uri.parse(ApiRef.hero)).timeout(const Duration(seconds: 5), onTimeout: () {
+      response = await http.get(Uri.parse(ApiRef.hero)).timeout(const Duration(seconds: 10), onTimeout: () {
         throw TimeoutException('The connection has timed out, Please try again!');
       });
       if (response.statusCode != 200) {
@@ -23,7 +23,7 @@ class Services {
 
   static Future<List<Heroes>> similarHero(String attr) async {
     try {
-      var response = await http.get(Uri.parse(ApiRef.hero)).timeout(const Duration(seconds: 5), onTimeout: () {
+      var response = await http.get(Uri.parse(ApiRef.hero)).timeout(const Duration(seconds: 10), onTimeout: () {
         throw TimeoutException('The connection has timed out, Please try again!');
       });
       List data = jsonDecode(response.body);
