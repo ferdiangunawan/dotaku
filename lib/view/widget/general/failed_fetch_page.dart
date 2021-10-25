@@ -29,17 +29,25 @@ class FailedFetchPage extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Text(message ?? "I'm sorry"),
-        TextButton(
-          onPressed: () {
-            if (pageId == 'home') {
-              context.read<HeroesCubit>().fetchHeroes();
-            } else if (pageId == 'similar') {
-              context.read<HeroesSimilarCubit>().fetchSimilarHeroes(attr!);
-            }
-          },
-          child: Text('Try Again', style: FontTheme.whiteFontStyle.copyWith(fontSize: 18)),
+        Text(
+          message ?? "I'm sorry",
+          style: FontTheme.whiteFontStyle,
+          maxLines: 2,
         ),
+        const SizedBox(
+          height: 5,
+        ),
+        MaterialButton(
+            color: Colors.grey,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            onPressed: () {
+              if (pageId == 'home') {
+                context.read<HeroesCubit>().fetchHeroes();
+              } else if (pageId == 'similar') {
+                context.read<HeroesSimilarCubit>().fetchSimilarHeroes(attr!);
+              }
+            },
+            child: Text('Try Again', style: FontTheme.blackFontStyle.copyWith(fontSize: 14))),
       ],
     );
   }

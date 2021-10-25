@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dotaku/model/hero.dart';
 import 'package:dotaku/service/hero_services.dart';
@@ -17,6 +18,8 @@ class HeroesCubit extends Cubit<HeroesState> {
       var data = await Services.loadHero();
       emit(HeroesLoaded(heroesList: data));
     } on ServiceException catch (e) {
+      emit(HeroesError(message: e.message ?? "A network error occured."));
+    } on TimeoutException catch (e) {
       emit(HeroesError(message: e.message ?? "A network error occured."));
     }
   }
@@ -41,6 +44,8 @@ class HeroesCubit extends Cubit<HeroesState> {
       }
       emit(HeroesLoaded(heroesList: resultFilter));
     } on ServiceException catch (e) {
+      emit(HeroesError(message: e.message ?? "A network error occured."));
+    } on TimeoutException catch (e) {
       emit(HeroesError(message: e.message ?? "A network error occured."));
     }
   }

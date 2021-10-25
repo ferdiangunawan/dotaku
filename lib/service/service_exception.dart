@@ -8,10 +8,10 @@ class ServiceException implements Exception {
 
   ServiceException([this.message]);
 
-  ServiceException.fromResponse(Response? res) {
+  ServiceException.fromResponse(Response res) {
     String? msg, prefix;
     try {
-      Map<String, dynamic> jsonData = jsonDecode(res!.body);
+      Map<String, dynamic> jsonData = jsonDecode(res.body);
       if (jsonData.containsKey('error')) {
         msg = jsonData['error']['message'];
       }
@@ -19,6 +19,7 @@ class ServiceException implements Exception {
       rethrow;
     }
 
+    // ignore: unnecessary_null_comparison
     if (res == null) {
       prefix = 'Failed to connect to server';
     } else {
