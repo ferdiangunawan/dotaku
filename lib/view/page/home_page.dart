@@ -19,8 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
-
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<HeroesCubit>();
@@ -29,7 +27,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: ColorTheme.accentColor,
       appBar: Commons.appBar(context: context, title: 'Dotaku'),
       body: RefreshIndicator(
-        key: _refreshIndicatorKey,
         onRefresh: () async {
           bloc.fetchHeroes();
           con.resetSelected();
